@@ -1,0 +1,48 @@
+---
+- name: Automatización de Servidores
+  hosts: servers
+  become: yes
+
+  tasks:
+    - name: Actualizar caché de software de apt
+      apt:
+        update_cache: yes
+
+    - name: Instalar Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Instalar cowsay
+      apt:
+        name: cowsay
+        state: present
+
+    - name: Crear un archivo
+      file:
+        path: /tmp/archivo.txt
+        state: touch
+
+    - name: Copiar un archivo
+      copy:
+        src: /mnt/c/Users/algen/Automatizacion_Ansible/file.txt
+        dest: /tmp/file.txt
+
+    - name: Crear carpetas
+      file:
+        path: /tmp/carpeta
+        state: directory
+
+    - name: Iniciar el servicio de Apache
+      service:
+        name: apache2
+        state: started
+
+    - name: Agregar un usuario
+      user:
+        name: algenis
+        state: present
+
+    - name: Ejecutar un script
+      script:
+        /mnt/c/Users/algen/Automatizacion_Ansible/script.sh
